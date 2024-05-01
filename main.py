@@ -4,6 +4,7 @@ from routes.API import router as API_route
 
 create_database()
 app = Flask(__name__, static_url_path="", static_folder="static")
+app.register_blueprint(API_route)
 
 @app.route("/")
 def index():

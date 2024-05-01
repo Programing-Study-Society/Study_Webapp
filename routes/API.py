@@ -11,7 +11,7 @@ class TodoPostValueError(Exception):
 class TodoNotFoundError(Exception):
     pass
 
-@router.route("/", methods=["POST"])
+@router.route("/post", methods=["POST"])
 def post():
     try: 
         title = request.json["title"]
@@ -87,9 +87,9 @@ def get_todo(_id):
 @router.route("/update", methods=["POST"])
 def update():
     try:
-        title = request.form.get("title", None, type=str)
-        description = request.form.get("description", None, type=str)
-        _id = request.form.get("id", None, type=int)
+        title = request.json["title"]
+        description = request.json["description"]
+        _id = request.json["id"]
         
         if _id is None:
             raise TodoPostValueError("idを入力してください。")
@@ -141,7 +141,7 @@ def update():
 @router.route("/delete", methods=["DELETE"])
 def delete():
     try:
-        _id = request.form.get("id", None, type=int)
+        _id = request.json["id"]
         
         if _id is None:
             raise TodoPostValueError("idを入力してください")
