@@ -14,6 +14,7 @@ class TodoNotFoundError(Exception):
 @router.route("/post", methods=["POST"])
 def post():
     try: 
+        print(request.json)
         title = request.json["title"]
         description = request.json["description"]
         
@@ -54,6 +55,8 @@ def get_todos():
     try:
         session = create_session()
         todos = session.query(Todo).all()
+        for todo in todos:
+            print(todo)
         return jsonify([todo.to_dict() for todo in todos])
     except:
         return jsonify([]), 500

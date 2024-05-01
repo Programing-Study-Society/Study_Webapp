@@ -2,22 +2,27 @@
     width: 40em;
     height: 3em;
 }
+
 .Content_textbox{
     width: 40em;
     height: 10em;
     word-wrap: break-word;
 }                                         
 
-#form{
+#update-todo-form,
+#create-todo-form {
     width: 50em;
     margin: 0 auto;
     margin-top: 40px;
 }
-.title_from,.Content_from{
+
+.title-form,
+.description-form {
     margin: 30px 0;
 }
 
-.Content_title,.title_text{
+.Content_title,
+.title_text {
     vertical-align: top;
 }
 

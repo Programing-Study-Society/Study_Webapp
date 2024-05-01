@@ -3,37 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
     <title>TodoList</title>
+    
 </head>
 <body>
     <header>
         <h1>TodoList</h1>
-        <a href="">
+        <a href="/html/create.html">
             <button type="submit">新規作成</button>
         </a>
     </header>
     <main>                                                                            
-        <!--<template>-->
-            <div class="todo_container">                                                                      
+        <template id="todo-template">
+            <div class="todo-container">                                                                      
                 <div  class="list">                                                         
                     <div>                    
-                        <h2 class="article_title">あいうえお</h2>
-                        <p class="article_date">かきくけこ</p>
+                        <h2 class="todo-title"></h2>
+                        <p class="todo-description"></p>
                     </div>
-                    <div class = "btn_list">
-                        <a href="">
+                    <div class = "btn-list">
+                        <a class="update-todo-button" href="update.html">
                             <button type ="submit">編集</button>
                         </a>
-                        <a href="">
+                        <a class="delete-todo-button" href="delete.html">
                             <button type ="submit">消去</button>
                         </a>
                     </div>
                 </div>
             </div>
-        <!--</template>-->
+        </template>
+        <div id="todo-list"></div>
     </main>
-
+    <script src="/js/index.js"></script>
 </body>
 </html>

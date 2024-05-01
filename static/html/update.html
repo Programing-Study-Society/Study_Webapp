@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/update_create.css" rel="stylesheet">
+    <title>TodoList</title>
+</head>
+<body>
+    <header>
+        <h1>TodoList</h1>
+        <h2>編集画面</h2>
+    </header>
+    <main>
+        <form class="update-todo-form">
+            <div class="title-form">
+                <label class="title_text">タイトル：</label>
+                <textarea type="text" id="input-title" placeholder="タイトルを入力してください" class="textbox"></textarea>
+            </div>
+            <div class="description-form">
+                <label class="Content_title">　本文　：</label>
+                <textarea type="text" id="input-description" wrap=”hard” placeholder="本文を入力してください" class="Content_textbox"></textarea>
+            </div>
+            <button type="submit">編集完了</button>
+        </form>
+    </main>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/update.js"></script>
+</body>
+</html>
