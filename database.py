@@ -2,24 +2,32 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, func
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 #接続先のDB
-DATABASE = 'sqlite:///todo.sqlite3'
+DB = 'sqlite:///todo.sqlite3'
 
-#Engineの作成
+#DBに接続するためのEngineの作成
 Engine = create_engine(
-    DATABASE,
+    DB,
+    #sql文のログの出力しないように設定している
     echo=False,
+    # sqliteを使用する時に複数スレッドの接続を許可している
     connect_args={"check_same_thread": False}
 )
 
+# ここで定義した変数を継承することで簡単にテーブルが作れるようになる
 d_base = declarative_base()
 
+# todoテーブルの作成
 class Todo(d_base):
+    # テーブル名の設定
     __tablename__ = 'todo'
     
+    # カラムの作成
+    # (カラムの型(最大値)、主キー、キーを1ずつ増やす)
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(255))
     description = Column(Text)
 
+    # DBの各値をtodoに入れ辞書型にしている
     def to_dict(self):
         todo = {
             "id": self.id,
@@ -29,13 +37,15 @@ class Todo(d_base):
         
         return todo
     
-
+# 全てのテーブルを作成
 def create_database():
     d_base.metadata.create_all(bind=Engine)
-    
+
+# sessionmaker関数を使い新しいセッションを作成、返している
 def create_session():
     return sessionmaker(bind=Engine)()
 
+# database.pyが実行された時DBのテーブルが作成される
 if __name__ == "__main__":
     create_database()
         
