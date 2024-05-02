@@ -27,7 +27,7 @@ class Todo(d_base):
     title = Column(String(255))
     description = Column(Text)
 
-    # DBの各値をtodoに入れ辞書型にしている
+    # DBの各値を辞書型にしている
     def to_dict(self):
         todo = {
             "id": self.id,
@@ -41,11 +41,11 @@ class Todo(d_base):
 def create_database():
     d_base.metadata.create_all(bind=Engine)
 
-# sessionmaker関数を使い新しいセッションを作成、返している
+# 新しいセッションを作成する関数
 def create_session():
     return sessionmaker(bind=Engine)()
 
-# database.pyが実行された時DBのテーブルが作成される
+# database.pyそのものが実行された時
 if __name__ == "__main__":
+    # データベースを作成
     create_database()
-        

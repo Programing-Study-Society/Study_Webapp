@@ -5,12 +5,15 @@
     
     // TODOのIDを取得
     const id = getId(window.location.href)
-
+    // 現在のTodoを取得
     const originalRes = await fetch("http://localhost:8000/api/todo/" + id);
+    // エラーの時に警告文を表示
     if (!originalRes.ok) {
         alert("データが取得できませんでした");
     }
+    // データの形式をjsonに変換
     const originalData = await originalRes.json();
+    // 現在のTodoをフォームに入れておく
     $title.value = originalData["todo"]["title"];
     $description.value = originalData["todo"]["description"];
     
@@ -28,6 +31,7 @@
                 "description": $description.value
             }
         );
+        // エラーの時に警告文を表示
         if (!res.ok) {
             alert("Todoの更新に失敗しました");
         }

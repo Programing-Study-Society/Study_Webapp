@@ -1,8 +1,7 @@
 const createTodo = async (e) =>{
-
     // 元々の動作を解除
     e.preventDefault();
-
+    
     // 入力データの取得
 	const title = document.getElementById('input-title').value;
 	const description = document.getElementById('input-description').value;
@@ -15,6 +14,7 @@ const createTodo = async (e) =>{
             "description": description
         }
     );
+    // エラーの時に警告文を表示
     if (!res.ok) {
         alert("Todoの作成に失敗しました");
     }

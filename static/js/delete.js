@@ -5,10 +5,11 @@
     const deleteTodo = async(e) =>{
         
         // 元々の動作を解除
-        //e.preventDefault();
+        e.preventDefault();
         
         // サーバーに送信
         const res = await deleteData("/api/delete", { "id": id });
+        // エラーの時に警告文を表示
         if (!res.ok) {
             alert("Todoの削除に失敗しました")
         }
