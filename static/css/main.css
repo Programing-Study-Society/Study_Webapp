@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+}
+
+:root{
+    --backcolor:#fff;
+    --solid:#ccc;
+}
+
+header, main, footer{
+    width: 100%;
+    text-align: center;
+}
+header{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    width: 50em;
+    margin: 0 auto;
+    margin-top:4em;
+}
+button{
+    width: 8em;
+    height:3em;
+    font-size: 1em;
+}
+label{
+    font-size: 24px;
+}
+.textbox{
+    width: 40em;
+    height: 3em;
+}
