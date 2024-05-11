@@ -1,8 +1,9 @@
 (async () => {
     // TODOのIDを取得
-    const id = getId(window.location.href)
+    const id = getId(window.location.href);
     
-    const deleteTodo = async(e) =>{
+    // 送信ボタンを押した時の処理を設定する　
+    document.querySelector(".delete-btn").addEventListener('click', async(e) =>{
         
         // 元々の動作を解除
         e.preventDefault();
@@ -15,8 +16,5 @@
         }
         // 一覧の画面に戻る
         window.location.href = "/"
-    }
-    
-    // 送信ボタンを押した時にdeleteTodo関数の挙動をさせる
-    document.querySelector(".delete-btn").addEventListener('click', deleteTodo);
+    });
 })();

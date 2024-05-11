@@ -1,4 +1,5 @@
-const createTodo = async (e) =>{
+// 送信ボタンを押したときの処理を設定する
+document.querySelector("form.create-todo-form").addEventListener('submit', async (e) =>{
     // 元々の動作を解除
     e.preventDefault();
     
@@ -21,7 +22,4 @@ const createTodo = async (e) =>{
     
     // 一覧の画面に戻る
     window.location.href = "/"
-}
-
-// 送信ボタンを押したときにcreateTodo関数の挙動をさせる
-document.querySelector("form.create-todo-form").addEventListener('submit', createTodo);
+});

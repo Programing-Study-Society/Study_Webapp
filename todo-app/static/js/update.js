@@ -17,8 +17,9 @@
     $title.value = originalData["todo"]["title"];
     $description.value = originalData["todo"]["description"];
     
-    const updateTodo = async (e) =>{
-    
+    // 送信ボタンを押したときの処理を設定する
+    document.querySelector("form.update-todo-form").addEventListener('submit', async (e) =>{
+
         // 元々の動作を解除
         e.preventDefault();
         
@@ -37,8 +38,5 @@
         }
         // 一覧の画面に戻る
         window.location.href = "/"
-    }
-    
-    // 送信ボタンを押したときにupdateTodo関数の挙動をさせる
-    document.querySelector("form.update-todo-form").addEventListener('submit', updateTodo);
+    });
 })();
