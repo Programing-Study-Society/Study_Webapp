@@ -49,3 +49,13 @@ def create_session():
 if __name__ == "__main__":
     # データベースを作成
     create_database()
+    session = create_session()
+    todos = [
+        Todo(title="test1", description="テストデータ1です"),
+        Todo(title="test2", description="テストデータ2です"),
+        Todo(title="test3", description="テストデータ3です")
+    ]
+    for todo in todos :
+        session.add(todo)
+        
+    session.commit()
