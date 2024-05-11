@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 import sys
 # 別のディレクトリにあるモジュールをインポートするためのパスを追加
 sys.path.append("../")
-from database import create_session, Todo
+from database import Todo, get_all_todos, get_filtering_todo, update_todo, add_todo, delete_todo, exist_todo
 
 # ファイルを分割する機能
 # /apiに色々なパスを追加する機能
@@ -23,9 +23,8 @@ class TodoNotFoundError(Exception):
 @router.route("/todos")
 def get_todos():
     try:
-        session = create_session()
         # データベースのTodoから全データを取得
-        todos = session.query(Todo).all()
+        todos = get_all_todos()
         
         # 全てのtodoを返す
         return jsonify({
@@ -59,19 +58,8 @@ def post():
         if len(title) > 255:
             raise TodoPostValueError("タイトルの文字数は255文字以内にしてください。")
         
-        # セッションを作成してデータベースと接続
-        session = create_session()
-        
-        # todoを作成する
-        todo = Todo(
-            title = title,
-            description = description
-        )
-        
-        # データベースにtodoを仮追加
-        session.add(todo)
-        # データベースに反映
-        session.commit()
+        # データベースにTodoを追加する
+        add_todo(title, description)
         
         # todoの作成が成功したことを伝える
         return jsonify({
@@ -103,14 +91,12 @@ def post():
 @router.route("/todo/<int:_id>")
 def get_todo(_id):
     try:
-        session = create_session()
-        
-        # DBのidとパスで指定した_idが一致する一番はじめのtodoを取り出す
-        todo =  session.query(Todo).filter(Todo.id == _id).first()
-        
         # 指定したtodoがない場合
-        if todo is None:
+        if not exist_todo(_id):
             raise TodoNotFoundError("Todoがありません")
+        
+        # idが一致するTodoを取得
+        todo = get_filtering_todo(Todo.id == _id)
         
         # 見つかったtodoを返す
         return jsonify({
@@ -137,7 +123,6 @@ def get_todo(_id):
 @router.route("/update", methods=["POST"])
 def update():
     try:
-        
         # jsonデータの取得
         title = request.json["title"]
         description = request.json["description"]
@@ -155,20 +140,11 @@ def update():
         if len(title) > 255:
             raise TodoPostValueError("タイトルの文字数は255文字以下にしてください。")
         
-        session = create_session()
-        
-        # DBのidと指定されたidが一致する一番はじめのtodoを取り出す
-        todo = session.query(Todo).filter(Todo.id == _id).first()
-        
         # todoがない場合
-        if todo is None:
+        if not exist_todo(_id):
             raise TodoNotFoundError("Todoがありません")
         
-        # todoの内容を更新する
-        todo.title = title
-        todo.description = description
-            
-        session.commit()
+        update_todo(_id, title, description)
         
         # 変更できたことを伝える
         return jsonify({
@@ -204,15 +180,11 @@ def delete():
         if _id is None:
             raise TodoPostValueError("idを入力してください")
         
-        session = create_session()
-        todo = session.query(Todo).filter(Todo.id == _id).first()
-        if todo is None:
+        if not exist_todo(_id):
             raise TodoNotFoundError("Todoがありません")
         
-        # todoの仮削除
-        session.delete(todo)
-        # データベースに反映させる
-        session.commit()
+        # todoの削除
+        delete_todo(_id)
         
         return jsonify({
             "result": True
