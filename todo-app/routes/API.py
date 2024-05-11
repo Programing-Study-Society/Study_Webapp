@@ -17,6 +17,30 @@ class TodoPostValueError(Exception):
 class TodoNotFoundError(Exception):
     pass
 
+
+### /api/todosの定義
+# 全てのtodoを返す
+@router.route("/todos")
+def get_todos():
+    try:
+        session = create_session()
+        # データベースのTodoから全データを取得
+        todos = session.query(Todo).all()
+        
+        # 全てのtodoを返す
+        return jsonify({
+            "result": True,
+            # todosからtodoを一つずつ取り出し辞書型にする
+            "todos": [todo.to_dict() for todo in todos]
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({
+            "result": False,
+            "message": "Internal Server Error"
+        }), 500
+
+
 ### /api/postの定義
 # todoを作成する
 # route("パスの指定", methods=["HTTPメソッドの指定"])
@@ -66,29 +90,6 @@ def post():
     except Exception as e:
         print(e)
         # jsonデータとステータスコード
-        return jsonify({
-            "result": False,
-            "message": "Internal Server Error"
-        }), 500
-
-
-### /api/todosの定義
-# 全てのtodoを返す
-@router.route("/todos")
-def get_todos():
-    try:
-        session = create_session()
-        # データベースのTodoから全データを取得
-        todos = session.query(Todo).all()
-        
-        # 全てのtodoを返す
-        return jsonify({
-            "result": True,
-            # todosからtodoを一つずつ取り出し辞書型にする
-            "todos": [todo.to_dict() for todo in todos]
-        })
-    except Exception as e:
-        print(e)
         return jsonify({
             "result": False,
             "message": "Internal Server Error"
@@ -191,6 +192,7 @@ def update():
             "result": False,
             "message": "Internal Server Error"
         }), 500
+
 
 ### /api/deleteの定義
 # idで指定されたtodoの削除
