@@ -19,6 +19,16 @@
     </a>
   </div>
 
+## 配布資料リポジトリ用
+<div>
+    <a href="https://github.com/Programing-Study-Society/Study_Webapp_handouts">
+      <p>
+        本番用配布資料リポジトリ
+      </p>
+    </a>
+  </div>
+
+
 ## 使用する技術
 
 ## フロントエンド
